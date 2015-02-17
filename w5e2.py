@@ -36,7 +36,8 @@ def check_vlan(number):
     """Takes a VLAN ID as argument. Returns True if in database; False if not"""
     vlan_list = create_connection().run_commands(['show vlan'])[0]['vlans'].keys()
     return number in vlan_list
-
+    
+    
 def display_vlans():
     """ Displays the content of the VLAN database."""
     vlans = create_connection().run_commands(['show vlan'])[0]['vlans']
@@ -44,15 +45,13 @@ def display_vlans():
     for key in vlans.keys():
         print 'VLAN ID: {} \tVLAN NAME: {}'.format(key, vlans[key]['name'])
     
-
+    
 def main():
     """Process arguments and calls delete_vlan or crete_vlan function."""
     parser = argparse.ArgumentParser()
     parser.add_argument("number", help="VLAN ID (Number)", action="store")
-    parser.add_argument("--name", help="To specify a VLAN name", action="store", des
-t="name")
-    parser.add_argument("--remove", help="Deletes the specified VLAN ID", action="st
-ore_true")
+    parser.add_argument("--name", help="To specify a VLAN name", action="store", dest="name")
+    parser.add_argument("--remove", help="Deletes the specified VLAN ID", action="store_true")
     args = parser.parse_args()
     number = args.number
     remove = args.remove
@@ -69,3 +68,4 @@ ore_true")
 
 if __name__ == "__main__":
     main()
+ 
